@@ -31,11 +31,19 @@ function App() {
     }
   };
   return (
-    <div className="App">
+    <div className="text-gif-app">
       <label
         htmlFor="input"
+        className='text-gif-label'
       >
-        Upload Your Video
+        <strong>Upload Your Gif</strong>
+        <div id="container-stars">
+          <div id="stars"></div>
+        </div>
+        <div id="glow">
+          <div className="circle"></div>
+          <div className="circle"></div>
+        </div>
       </label>
       <input
         type="file"
