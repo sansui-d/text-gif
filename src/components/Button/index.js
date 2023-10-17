@@ -1,19 +1,11 @@
 import React from 'react';
 import './index.less';
 
-function Button() {
-
+function Button(props) {
+    const { text, onClick, btnRef } = props
     return (
-        <button className="text-gif-button">
-            <strong>SPACE</strong>
-            <div id="container-stars">
-                <div id="stars"></div>
-            </div>
-
-            <div id="glow">
-                <div className="circle"></div>
-                <div className="circle"></div>
-            </div>
+        <button className="text-img-button" ref={btnRef} onClick={onClick} >
+            {text}
         </button>
     );
 }

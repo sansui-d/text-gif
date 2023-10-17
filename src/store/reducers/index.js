@@ -1,13 +1,18 @@
-import { ADDIMG } from '../types/index'
+import { ADDIMG, REPLACEIMG } from '../types/index'
 
 const rootState = {
-    img: []
+  imgs: []
 }
 export default function reducers(state = rootState, actions) {
   switch (actions.type) {
     case ADDIMG: {
-      const img = [...state.img, actions.img]
-      return { ...state, img: img }
+      const imgs = [...state.imgs, actions.imgs]
+      return { ...state, imgs: imgs }
+    }
+    case REPLACEIMG: {
+      const imgs = [...state.imgs]
+      imgs.splice(actions.index, 1, actions.imgs);
+      return { ...state, imgs: imgs }
     }
     default:
       return state
