@@ -1,28 +1,33 @@
 import React, { useRef, useEffect } from 'react';
 import { fabric } from 'fabric';
 import { useDispatch } from "react-redux"
-import { replaceImg } from '../../../../store/actions'
-import Button from '../../../../components/Button';
-import ColorPicker from '../../../../components/ColorPicker';
-import { dataURLtoBlob, blobToFile, fileToBase64 } from '../../../../utils/file'
+import { replaceImg } from '@store/actions'
+import { dataURLtoBlob, blobToFile, fileToBase64 } from '@utils/file'
+import Button from '@components/Button';
+import ColorPicker from '@components/ColorPicker';
+import { resetIcon, textIcon, saveIcon, colorIcon } from '@components/Svg'
 import './index.less';
 
 const options = [
     {
         name: 'Reset',
         type: 'reset',
+        icon: resetIcon
     },
     {
         name: 'Add-Text',
         type: 'add-text',
+        icon: textIcon
     },
     {
         name: 'Color',
         type: 'color',
+        icon: colorIcon
     },
     {
         name: 'Download',
         type: 'download',
+        icon: saveIcon
     }
 ]
 function Content(props) {
@@ -180,7 +185,7 @@ function Content(props) {
                         onClick={() => handleClick(item.type)}
                         key={item.type}
                     >{item.type === 'color' ?
-                        <ColorPicker text={item.name} onChange={handleChangeColor} /> : <Button text={item.name} />}
+                        <ColorPicker icon={item.icon} onChange={handleChangeColor} /> : <Button icon={item.icon} />}
                     </div>))}
             </div>
         </div>

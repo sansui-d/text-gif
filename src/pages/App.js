@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import GIF from "gif.js";
+import { addImg } from '@store/actions'
 import { worker } from "@utils/gif-worker";
-import { addImg } from '../store/actions'
-import SuperGif from '../utils/libgif';
-import Mask from '../components/Mask';
+import SuperGif from '@utils/libgif';
+import Mask from '@components/Mask';
+import Card from '@components/Card';
 import './App.less';
 
 function App() {
@@ -93,16 +94,9 @@ function App() {
     <div className="text-gif-app">
       <label
         htmlFor="input"
-        className='text-gif-label'
+        className='text-gif-hover-button text-gif-upload'
       >
-        <strong>Upload Your Gif</strong>
-        <div id="container-stars">
-          <div id="stars"></div>
-        </div>
-        <div id="glow">
-          <div className="circle"></div>
-          <div className="circle"></div>
-        </div>
+        Upload Your Gif
       </label>
       <input
         type="file"
@@ -112,9 +106,9 @@ function App() {
         onClick={(e) => (e.target.value = null)}
         onChange={(e) => handleUpload(e)}
       />
-      <div className='text-gif-img-list' ref={imgListRef} >{imgs.map((item, index) => (<img id={index} draggable={false} key={'img' + index} src={item}></img>))}</div>
+      <div className='text-gif-img-list' ref={imgListRef} >{imgs.map((item, index) => (<Card content={<img id={index} draggable={false} key={'img' + index} src={item}></img>} />))}</div>
       <Mask img={maskImg} showMask={showMask} setShowMask={setShowMask} />
-      <div className='text-gif-download' onClick={handleDownload}>download</div>
+      <div className='text-gif-hover-button text-gif-download' onClick={handleDownload}>download</div>
     </div>
   );
 }

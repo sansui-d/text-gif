@@ -7,12 +7,23 @@
     display: flex;
     box-sizing: border-box;
     padding: 20px;
+    z-index: 100;
 
     .text-gif-mask-close {
-        color: #fff;
         position: absolute;
         right: 10px;
         top: 10px;
         cursor: pointer;
+
+        svg {
+            width: 24px;
+            height: 24px;
+
+            &:hover {
+                path {
+                    fill: #1296db;
+                }
+            }
+        }
     }
 }

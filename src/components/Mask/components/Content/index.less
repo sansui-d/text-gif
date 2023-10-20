@@ -5,7 +5,7 @@
     .text-gif-mask-tool {
         position: absolute;
         bottom: 20px;
-        height: 50px;
+        height: 60px;
         display: flex;
         justify-content: center;
         width: calc(100% - 40px);
@@ -18,6 +18,40 @@
         &-item:first-child {
             margin-left: 0;
         }
+
+        .icon {
+            transition: 300ms all ease-in-out;
+            position: relative;
+
+            &:hover {
+                translate: -0px -10px;
+            }
+        }
+
+        #resetIcon:hover {
+            path {
+                fill: rgb(221, 157, 189);
+            }
+        }
+
+        #colorIcon:hover {
+            path {
+                fill: rgb(241, 96, 96);
+            }
+        }
+
+        #textIcon:hover {
+            path {
+                fill: rgb(196, 143, 245);
+            }
+        }
+
+        #saveIcon:hover {
+            path {
+                fill: rgb(221, 157, 109);
+            }
+        }
+
     }
 
     .text-gif-mask-img {

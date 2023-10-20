@@ -1,7 +1,7 @@
 .text-gif-app {
   width: 100vw;
   height: 100vh;
-  background-color: #000;
+  background-color: rgb(33, 33, 33);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,196 +10,104 @@
   .text-gif-img-list {
     display: flex;
     width: 100%;
-    overflow: auto;
+    overflow: auto hidden;
 
     img {
-      margin: 0 20px;
+      border-radius: 10px;
+      width: 100%;
+      height: 100%;
     }
 
-    img:first-child {
+    .text-gif-card {
+      margin: 0 10px;
+    }
+
+    .text-gif-card:first-child {
       margin-left: 0;
     }
 
-    img:last-child {
+    .text-gif-card:last-child {
       margin-right: 0;
     }
   }
 
   .text-gif-download {
+    margin-top: 10px;
+  }
+
+  .text-gif-upload {
+    margin-bottom: 10px;
+  }
+
+  .text-gif-hover-button {
+    width: 220px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border: none;
+    outline: none;
     color: #fff;
-  }
-
-  .text-gif-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 13rem;
-    overflow: hidden;
-    height: 3rem;
-    background-size: 300% 300%;
-    backdrop-filter: blur(1rem);
-    border-radius: 5rem;
-    transition: 0.5s;
-    animation: gradient_301 5s ease infinite;
-    border: double 4px transparent;
-    background-image: linear-gradient(#212121, #212121),
-      linear-gradient(137.48deg,
-        #ffdb3b 10%,
-        #fe53bb 45%,
-        #8f51ea 67%,
-        #0044ff 87%);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-  }
-
-  #container-stars {
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    transition: 0.5s;
-    backdrop-filter: blur(1rem);
-    border-radius: 5rem;
-  }
-
-  strong {
-    z-index: 2;
-    font-family: "Avalors Personal Use";
-    font-size: 12px;
-    letter-spacing: 5px;
-    color: #ffffff;
-    text-shadow: 0 0 4px white;
-  }
-
-  #glow {
-    position: absolute;
-    display: flex;
-    width: 12rem;
-  }
-
-  .circle {
-    width: 100%;
-    height: 30px;
-    filter: blur(2rem);
-    animation: pulse_3011 4s infinite;
-    z-index: -1;
-  }
-
-  .circle:nth-of-type(1) {
-    background: rgba(254, 83, 186, 0.636);
-  }
-
-  .circle:nth-of-type(2) {
-    background: rgba(142, 81, 234, 0.704);
-  }
-
-  .text-gif-label:hover #container-stars {
-    z-index: 1;
-    background-color: #212121;
-  }
-
-  .text-gif-label:hover {
-    transform: scale(1.1);
-  }
-
-  .text-gif-label:active {
-    border: double 4px #fe53bb;
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    animation: none;
-  }
-
-  .text-gif-label:active .circle {
-    background: #fe53bb;
-  }
-
-  #stars {
+    background: rgb(17, 17, 17);
+    cursor: pointer;
     position: relative;
-    background: transparent;
-    width: 200rem;
-    height: 200rem;
+    z-index: 0;
+    border-radius: 10px;
+    font-weight: 600;
   }
 
-  #stars::after {
-    content: "";
+  .text-gif-hover-button:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
-    top: -10rem;
-    left: -100rem;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing_54134 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+  }
+
+  .text-gif-hover-button:active {
+    color: #000
+  }
+
+  .text-gif-hover-button:active:after {
+    background: transparent;
+  }
+
+  .text-gif-hover-button:hover:before {
+    opacity: 1;
+  }
+
+  .text-gif-hover-button:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
     width: 100%;
     height: 100%;
-    animation: animStarRotate 90s linear infinite;
-  }
-
-  #stars::after {
-    background-image: radial-gradient(#ffffff 1px, transparent 1%);
-    background-size: 50px 50px;
-  }
-
-  #stars::before {
-    content: "";
-    position: absolute;
+    background: #111;
+    left: 0;
     top: 0;
-    left: -50%;
-    width: 170%;
-    height: 500%;
-    animation: animStar 60s linear infinite;
+    border-radius: 10px;
   }
 
-  #stars::before {
-    background-image: radial-gradient(#ffffff 1px, transparent 1%);
-    background-size: 50px 50px;
-    opacity: 0.5;
-  }
-
-  @keyframes animStar {
-    from {
-      transform: translateY(0);
-    }
-
-    to {
-      transform: translateY(-135rem);
-    }
-  }
-
-  @keyframes animStarRotate {
-    from {
-      transform: rotate(360deg);
-    }
-
-    to {
-      transform: rotate(0);
-    }
-  }
-
-  @keyframes gradient_301 {
+  @keyframes glowing_54134 {
     0% {
-      background-position: 0% 50%;
+      background-position: 0 0;
     }
 
     50% {
-      background-position: 100% 50%;
+      background-position: 400% 0;
     }
 
     100% {
-      background-position: 0% 50%;
+      background-position: 0 0;
     }
   }
 
-  @keyframes pulse_3011 {
-    0% {
-      transform: scale(0.75);
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-    }
-
-    70% {
-      transform: scale(1);
-      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-    }
-
-    100% {
-      transform: scale(0.75);
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-    }
-  }
 }

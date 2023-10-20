@@ -5,7 +5,7 @@ import Button from '../Button'
 import './index.less';
 
 function ColorPicker(props) {
-    const { text, onChange } = props;
+    const { text, icon, onChange } = props;
     const pickerRef = useRef(null)
     const btnRef = useRef(null);
     const [showPicker, setShowPicker] = useState(false);
@@ -17,11 +17,11 @@ function ColorPicker(props) {
     const handleClick = () => {
         setShowPicker(!showPicker)
     }
-    return <div className='text-img-colorpicker'>
-        {showPicker && <div className='text-img-colorpicker-picker' ref={pickerRef}>
+    return <div className='text-gif-colorpicker'>
+        {showPicker && <div className='text-gif-colorpicker-picker' ref={pickerRef}>
             <TwitterPicker onChangeComplete={(color) => { onChange && onChange(color.hex) }} />
         </div>}
-        <Button text={text} onClick={handleClick} btnRef={btnRef} />
+        <Button icon={icon} text={text} onClick={handleClick} btnRef={btnRef} />
     </div>;
 };
 
