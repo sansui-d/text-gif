@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import GIF from "gif.js";
-import { addImg } from '@store/actions'
+import { addImg, resetImg } from '@store/actions'
 import { worker } from "@utils/gif-worker";
 import SuperGif from '@utils/libgif';
 import Mask from '@components/Mask';
@@ -25,16 +25,18 @@ function App() {
         const docImg = document.createElement("img");
         docImg.src = e.target.result;
         docImg.onload = function () {
-          const superGif = new SuperGif({ gif: docImg });
-          console.log(superGif, 'superGif')
-          console.log(superGif.get_loading(), 'superGif')
-          superGif.load(function () {
-            for (let i = 0; i < superGif.get_length(); i++) {
-              superGif.move_to(i)
-              const sImg = superGif.get_canvas().toDataURL('image/png');
-              dispatch(addImg(sImg))
-            }
-          });
+            const superGif = new SuperGif({ gif: docImg });
+            superGif.onError(function (e) {
+              console.log(e);
+            });
+            superGif.load(function () {
+              dispatch(resetImg())
+              for (let i = 0; i < superGif.get_length(); i++) {
+                superGif.move_to(i)
+                const sImg = superGif.get_canvas().toDataURL('image/png');
+                dispatch(addImg(sImg))
+              }
+            });
         }
       };
     }
@@ -70,7 +72,6 @@ function App() {
       console.log(progress)
     });
     gif.on("finished", function (blob) {
-      console.log(URL.createObjectURL(blob))
       const a = document.createElement("a");
       a.setAttribute("href", URL.createObjectURL(blob));
       a.setAttribute("target", "download");
@@ -83,7 +84,6 @@ function App() {
     imgListRef.current.addEventListener('click', (e) => {
       e.stopPropagation()
       e.stopImmediatePropagation()
-      console.log(e)
       if (e.target?.tagName === 'IMG') {
         setMaskImg(e.target)
         setShowMask(true)
@@ -96,7 +96,7 @@ function App() {
         htmlFor="input"
         className='text-gif-hover-button text-gif-upload'
       >
-        Upload Your Gif
+        Upload Gif
       </label>
       <input
         type="file"
@@ -106,9 +106,13 @@ function App() {
         onClick={(e) => (e.target.value = null)}
         onChange={(e) => handleUpload(e)}
       />
-      <div className='text-gif-img-list' ref={imgListRef} >{imgs.map((item, index) => (<Card content={<img id={index} draggable={false} key={'img' + index} src={item}></img>} />))}</div>
+      <div className='text-gif-img-list' ref={imgListRef} >{imgs.map((item, index) => (<Card 
+      count={`${index + 1}/${imgs.length}`}
+      content={<img id={index} 
+      draggable={false} 
+      key={'img' + index} src={item} ></img>} />))}</div>
       <Mask img={maskImg} showMask={showMask} setShowMask={setShowMask} />
-      <div className='text-gif-hover-button text-gif-download' onClick={handleDownload}>download</div>
+      <div className='text-gif-hover-button text-gif-download' onClick={handleDownload}>Download Gif</div>
     </div>
   );
 }

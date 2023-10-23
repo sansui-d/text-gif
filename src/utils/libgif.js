@@ -486,6 +486,7 @@ function libgif() {
 
         var loadError = null;
         var loading = false;
+        var errCallback = null;
 
         var transparency = null;
         var delay = null;
@@ -632,6 +633,7 @@ function libgif() {
             }; // Fake header.
             frames = [];
             drawError();
+            errCallback('GIF loading failed: ' + originOfError)
         };
 
         var doHdr = function (_hdr) {
@@ -1037,7 +1039,10 @@ function libgif() {
                 stream = new Stream(arr);
                 setTimeout(doParse, 0);
             },
-            set_frame_offset: setFrameOffset
+            set_frame_offset: setFrameOffset,
+            onError: function (callback) {
+                errCallback = callback;
+            }
         };
     };
 

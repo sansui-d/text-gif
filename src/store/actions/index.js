@@ -1,4 +1,4 @@
-import { ADDIMG, REPLACEIMG } from '../types/index';
+import { ADDIMG, REPLACEIMG, RESETIMG } from '../types/index';
 
 export function addImg(imgs) {
   return {
@@ -11,5 +11,10 @@ export function replaceImg(imgs, index) {
     type: REPLACEIMG,
     imgs,
     index
+  }
+}
+export function resetImg() {
+  return {
+    type: RESETIMG,
   }
 }
