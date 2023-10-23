@@ -2,7 +2,7 @@ import React from 'react';
 import './index.less';
 
 function Card(props) {
-    const { content,count, onClick } = props
+    const { content, count, onClick } = props
 
     return (
         <div className="text-gif-card" onClick={onClick} >

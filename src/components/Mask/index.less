@@ -1,29 +1,29 @@
 .text-gif-mask {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  box-sizing: border-box;
+  padding: 20px;
+  z-index: 100;
+
+  .text-gif-mask-close {
     position: absolute;
-    top: 0;
-    background-color: rgba(0, 0, 0, .9);
-    display: flex;
-    box-sizing: border-box;
-    padding: 20px;
-    z-index: 100;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
 
-    .text-gif-mask-close {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        cursor: pointer;
+    svg {
+      width: 24px;
+      height: 24px;
 
-        svg {
-            width: 24px;
-            height: 24px;
-
-            &:hover {
-                path {
-                    fill: #1296db;
-                }
-            }
+      &:hover {
+        path {
+          fill: #1296db;
         }
+      }
     }
+  }
 }
