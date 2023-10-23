@@ -6,6 +6,7 @@ import { worker } from "@utils/gif-worker";
 import SuperGif from '@utils/libgif';
 import Mask from '@components/Mask';
 import Card from '@components/Card';
+import Loading from '@components/Loading';
 import './App.less';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   })
   const [showMask, setShowMask] = useState(false);
   const [maskImg, setMaskImg] = useState(null)
+  const [loading, setLoading] = useState(0)
   const imgListRef = useRef(null);
   const handleUpload = (e) => {
     if (e.target.files.length > 0) {
@@ -25,18 +27,21 @@ function App() {
         const docImg = document.createElement("img");
         docImg.src = e.target.result;
         docImg.onload = function () {
-            const superGif = new SuperGif({ gif: docImg });
-            superGif.onError(function (e) {
-              console.log(e);
-            });
-            superGif.load(function () {
-              dispatch(resetImg())
-              for (let i = 0; i < superGif.get_length(); i++) {
-                superGif.move_to(i)
-                const sImg = superGif.get_canvas().toDataURL('image/png');
-                dispatch(addImg(sImg))
-              }
-            });
+          setLoading(1)
+          const superGif = new SuperGif({ gif: docImg });
+          superGif.onError(function (e) {
+            console.log(e)
+            setLoading(0)
+          });
+          superGif.load(function () {
+            dispatch(resetImg())
+            for (let i = 0; i < superGif.get_length(); i++) {
+              superGif.move_to(i)
+              const sImg = superGif.get_canvas().toDataURL('image/png');
+              dispatch(addImg(sImg))
+            }
+            setLoading(0)
+          });
         }
       };
     }
@@ -61,6 +66,7 @@ function App() {
     })
   }
   const handleDownload = async () => {
+    setLoading(2)
     const gif = new GIF({
       workers: 2,
       quality: 10,
@@ -69,7 +75,7 @@ function App() {
     await imgOnload(gif)
 
     gif.on("progress", function (progress) {
-      console.log(progress)
+      console.log(progress, 'progress')
     });
     gif.on("finished", function (blob) {
       const a = document.createElement("a");
@@ -77,6 +83,7 @@ function App() {
       a.setAttribute("target", "download");
       a.setAttribute("download", "text-gif.gif");
       a.click();
+      setLoading(0)
     });
     gif.render();
   }
@@ -97,6 +104,7 @@ function App() {
         className='text-gif-hover-button text-gif-upload'
       >
         Upload Gif
+        {loading == 1 && <Loading />}
       </label>
       <input
         type="file"
@@ -106,13 +114,16 @@ function App() {
         onClick={(e) => (e.target.value = null)}
         onChange={(e) => handleUpload(e)}
       />
-      <div className='text-gif-img-list' ref={imgListRef} >{imgs.map((item, index) => (<Card 
-      count={`${index + 1}/${imgs.length}`}
-      content={<img id={index} 
-      draggable={false} 
-      key={'img' + index} src={item} ></img>} />))}</div>
+      <div className='text-gif-img-list' ref={imgListRef} >{imgs.map((item, index) => (<Card
+        count={`${index + 1}/${imgs.length}`}
+        content={<img id={index}
+          draggable={false}
+          key={'img' + index} src={item} ></img>} />))}</div>
       <Mask img={maskImg} showMask={showMask} setShowMask={setShowMask} />
-      <div className='text-gif-hover-button text-gif-download' onClick={handleDownload}>Download Gif</div>
+      <div className='text-gif-hover-button text-gif-download' onClick={handleDownload}>
+        Download Gif
+        {loading == 2 && <Loading />}
+      </div>
     </div>
   );
 }

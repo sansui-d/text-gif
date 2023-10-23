@@ -8,7 +8,7 @@ module.exports = merge(common, {
     devtool: "eval-cheap-module-source-map",
     devServer: {
         host: "0.0.0.0",
-        port: 8081,
+        port: 8082,
         static: {
             directory: path.join(__dirname, "dist"),
         },
